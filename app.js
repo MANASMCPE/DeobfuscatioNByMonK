@@ -1,258 +1,96 @@
-const toastHolder = document.getElementById('toastHolder');
-function toast(message, type = 'ok') {
-  if (!toastHolder) return;
+const TOOLS = [
+  { n:'01', name:'Detector',           slug:'detector',      type:'SCANNER', desc:'Detect the obfuscator used on a Lua script by MonKDeobf (results are not 100% guaranteed).' },
+  { n:'02', name:'Luraph v15 & v15.1', slug:'luraph',        type:'DEOBFUSCATOR', desc:'Deobfuscate Luraph v15 and v15.1 protected scripts.' },
+  { n:'03', name:'Renamer',            slug:'renamer',       type:'TOOL', desc:'Rename messy and obfuscated variables to readable names.' },
+  { n:'04', name:'Beautifier',         slug:'beautifier',    type:'TOOL', desc:'Format and beautify Lua source code for readability.' },
+  { n:'05', name:'Moonveil 2.x',       slug:'moonveil',      type:'DEOBFUSCATOR', desc:'Deobfuscate Moonveil 2.x protected scripts (BETA).' },
+  { n:'06', name:'Prometheus',         slug:'prometheus',    type:'DEOBFUSCATOR', desc:'Deobfuscate Prometheus (not made by MonKDeobf).' },
+  { n:'07', name:'Ironbrew2',          slug:'ironbrew2',     type:'DEOBFUSCATOR', desc:'Deobfuscate Ironbrew2 (not made by MonKDeobf).' },
+  { n:'08', name:'MoonSec V3',         slug:'moonsecv3',     type:'DEOBFUSCATOR', desc:'Deobfuscate MoonSec V3 protected scripts.' },
+  { n:'09', name:'Hercules',           slug:'hercules',      type:'DEOBFUSCATOR', desc:'Deobfuscate Hercules protected scripts.' },
+  { n:'10', name:'Goofyscator',        slug:'goofyscator',   type:'DEOBFUSCATOR', desc:'Deobfuscate Goofyscator V11 protected scripts.' },
+  { n:'11', name:'Boronide',           slug:'boronide',      type:'DEOBFUSCATOR', desc:'Deobfuscate Boronide protected scripts.' },
+  { n:'12', name:'XHider',             slug:'xhider',        type:'DEOBFUSCATOR', desc:'Deobfuscate XHider protected scripts.' },
+  { n:'13', name:'Ironveil',           slug:'ironveil',      type:'DEOBFUSCATOR', desc:'Deobfuscate Ironveil protected scripts.' },
+  { n:'14', name:'LuaObfuscator',      slug:'luaobfuscator', type:'DEOBFUSCATOR', desc:'Deobfuscate LuaObfuscator protected scripts.' },
+  { n:'15', name:'PSU',                slug:'psu',           type:'DEOBFUSCATOR', desc:'Deobfuscate PSU protected scripts.' },
+  { n:'16', name:'77fuscator',         slug:'77fuscator',    type:'DEOBFUSCATOR', desc:'Deobfuscate 77fuscator protected scripts.' },
+  { n:'17', name:'Clyde',              slug:'clyde',         type:'DEOBFUSCATOR', desc:'Deobfuscate Clyde protected scripts.' }
+];
+
+const LOGO_URL = "https://leakd.vercel.app/LeakD.webp"; 
+// Using the real site's tool icons so they never break
+function getToolIcon(slug) { return `https://leakd.vercel.app/deobf/${slug}.webp`; }
+
+function toast(msg) {
+  const holder = document.getElementById('toastHolder');
+  if (!holder) return;
   const el = document.createElement('div');
-  el.className = `toast ${type}`;
-  el.innerHTML = `<span class="t-dot"></span><span>${message}</span>`;
-  toastHolder.appendChild(el);
+  el.className = 'toast';
+  el.innerHTML = `<span class="t-dot"></span><span>${msg}</span>`;
+  holder.appendChild(el);
   setTimeout(() => {
     el.classList.add('out');
     el.addEventListener('animationend', () => el.remove());
   }, 2800);
 }
-window.toast = toast;
 
-const enterScreen = document.getElementById('enterScreen');
-if (enterScreen) {
-  function dismiss() { enterScreen.classList.add('hidden'); }
-  enterScreen.addEventListener('click', dismiss);
-  enterScreen.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') dismiss();
-  });
-  setTimeout(dismiss, 4500);
-}
+// Run only on tools.html
+if (document.getElementById('toolPills')) {
+  const urlParams = new URLSearchParams(window.location.search);
+  let currentTool = urlParams.get('tool') || 'detector';
 
-const mobileBtn = document.getElementById('mobileMenuBtn');
-if (mobileBtn) {
-  mobileBtn.addEventListener('click', () => {
-    document.querySelector('.topnav').classList.toggle('mobile-open');
-  });
-}
+  const pillsContainer = document.getElementById('toolPills');
+  pillsContainer.innerHTML = TOOLS.map(t => `
+    <div class="pill" data-slug="${t.slug}" onclick="selectTool('${t.slug}')">
+      <img src="${getToolIcon(t.slug)}" alt="" onerror="this.style.display='none'">
+      ${t.name}
+    </div>
+  `).join('');
 
-const inputCode = document.getElementById('inputCode');
-if (inputCode) initWorkbench();
+  window.selectTool = function(slug) {
+    currentTool = slug;
+    const tool = TOOLS.find(t => t.slug === slug) || TOOLS[0];
+    
+    document.querySelectorAll('.pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.slug === slug);
+      if(p.dataset.slug === slug) p.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    });
 
-function initWorkbench() {
-  const outputBody  = document.getElementById('outputBody');
-  const outputEmpty = document.getElementById('outputEmpty');
-  const dropZone    = document.getElementById('dropZone');
-  const dropOverlay = document.getElementById('dropOverlay');
-  const fileInput   = document.getElementById('fileInput');
-  const engineSel   = document.getElementById('engine');
-  const statSize    = document.getElementById('statSize');
-  const statLines   = document.getElementById('statLines');
-  const statEngine  = document.getElementById('statEngine');
-  const btnRun      = document.getElementById('btnRun');
+    document.getElementById('benchTitle').innerHTML = `${tool.name} <span class="bench-type">${tool.type}</span>`;
+    document.getElementById('benchDesc').textContent = tool.desc;
+    
+    const iconImg = document.getElementById('benchIcon');
+    iconImg.src = getToolIcon(slug);
+    iconImg.onerror = function() { this.src = `https://via.placeholder.com/32/d4a853/000000?text=${tool.name.charAt(0)}`; };
 
-  function updateStats() {
-    const val = inputCode.value;
-    const bytes = new Blob([val]).size;
-    statSize.textContent = bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(1)} KB`;
-    statLines.textContent = val ? val.split('\n').length : 0;
+    document.getElementById('benchNotice').style.display = (slug === 'detector') ? 'flex' : 'none';
+    
+    // Update URL without reloading
+    window.history.replaceState(null, '', `?tool=${slug}`);
   }
-  inputCode.addEventListener('input', updateStats);
-  engineSel.addEventListener('change', () => {
-    statEngine.textContent = engineSel.options[engineSel.selectedIndex].text;
-  });
 
-  let dragDepth = 0;
-  ['dragenter','dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => {
-      e.preventDefault();
-      if (evt === 'dragenter') dragDepth++;
-      dropOverlay.classList.add('active');
-    });
-  });
-  ['dragleave','dragend'].forEach(evt => {
-    dropZone.addEventListener(evt, e => {
-      e.preventDefault();
-      if (evt === 'dragleave') dragDepth--;
-      if (dragDepth <= 0) dropOverlay.classList.remove('active');
-    });
-  });
-  dropZone.addEventListener('drop', e => {
-    e.preventDefault();
-    dragDepth = 0;
-    dropOverlay.classList.remove('active');
-    const file = e.dataTransfer.files[0];
-    if (file) readFile(file);
-  });
+  // Init
+  selectTool(currentTool);
 
-  document.getElementById('btnUpload').addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', () => {
-    if (fileInput.files[0]) readFile(fileInput.files[0]);
-    fileInput.value = '';
-  });
-
-  function readFile(file) {
-    if (file.size > 5 * 1024 * 1024) { toast('File too large (max 5 MB).', 'err'); return; }
+  // File upload handler
+  document.getElementById('fileInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
     const reader = new FileReader();
-    reader.onload = e => {
-      inputCode.value = e.target.result;
-      updateStats();
-      toast(`Loaded ${file.name}`, 'ok');
+    reader.onload = (ev) => {
+      document.getElementById('codeInput').value = ev.target.result;
+      toast(`Loaded ${file.name}`);
     };
-    reader.onerror = () => toast('Could not read file.', 'err');
     reader.readAsText(file);
-  }
-
-  document.getElementById('btnClear').addEventListener('click', () => {
-    inputCode.value = '';
-    updateStats();
-    resetOutput();
-    toast('Cleared.', 'ok');
   });
+}
 
-  document.getElementById('btnCopy').addEventListener('click', async () => {
-    const text = outputBody.innerText.trim();
-    if (!text || text.includes('Deobfuscated code will appear here')) {
-      toast('Nothing to copy yet.', 'err'); return;
-    }
-    try {
-      await navigator.clipboard.writeText(text);
-      toast('Copied to clipboard.', 'ok');
-    } catch { toast('Copy failed.', 'err'); }
-  });
-
-  document.getElementById('btnDownload').addEventListener('click', () => {
-    const text = outputBody.innerText.trim();
-    if (!text || text.includes('Deobfuscated code will appear here')) {
-      toast('Nothing to download yet.', 'err'); return;
-    }
-    const blob = new Blob([text], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'output.lua';
-    a.click();
-    URL.revokeObjectURL(url);
-    toast('Downloaded output.lua', 'ok');
-  });
-
-  const SAMPLE = `-- Example obfuscated Lua input
-local a=("\\104\\101\\108\\108\\111")
-local b=("\\119\\111\\114\\108\\100")
-local function v(...) return select('#',...),{...} end
-local function decode(s)
-  return (s:gsub("\\\\(%d+)", function(x) return string.char(tonumber(x)) end))
-end
-print(decode(a).." "..decode(b))`;
-
-  document.getElementById('btnSample').addEventListener('click', () => {
-    inputCode.value = SAMPLE;
-    updateStats();
-    resetOutput();
-    toast('Sample loaded.', 'ok');
-  });
-
-  function resetOutput() {
-    outputBody.innerHTML = '';
-    outputBody.appendChild(outputEmpty);
+function runTool() {
+  const code = document.getElementById('codeInput').value.trim();
+  if (!code) {
+    toast('Paste a script first.');
+    return;
   }
-  function setOutput(text, error) {
-    outputBody.innerHTML = '';
-    outputBody.textContent = text;
-    outputBody.className = 'output-body' + (error ? ' output-error' : '');
-  }
-
-  function detectObfuscator(code) {
-    const sigs = [
-      { name: 'Luraph v15', patterns: [/Luraph/i, /luraph\.io/, /\bLuraph\b/] },
-      { name: 'MoonSec V3', patterns: [/MoonSec/i, /moonsec/i, /_moonsec/] },
-      { name: 'Moonveil 2.x', patterns: [/Moonveil/i, /moonveil/i] },
-      { name: 'Prometheus', patterns: [/Prometheus/i, /prometheus/] },
-      { name: 'IronBrew2', patterns: [/IronBrew/i, /ironbrew/i, /iron_brew/] },
-      { name: 'Goofyscator', patterns: [/Goofy/i, /goofyscator/i] },
-      { name: 'Boronide', patterns: [/Boronide/i, /boronide/i] },
-      { name: 'Hercules', patterns: [/Hercules/i, /hercules/] },
-      { name: 'XHider', patterns: [/XHider/i, /xhider/] },
-      { name: 'Ironveil', patterns: [/Ironveil/i, /ironveil/] },
-      { name: 'Clyde', patterns: [/Clyde/i, /\bclyde\b/] },
-      { name: 'PSU', patterns: [/\bPSU\b/, /psu_/, /_psu/] },
-      { name: '77fuscator', patterns: [/77fuscator/i, /_77f/] },
-      { name: 'LuaObfuscator', patterns: [/LuaObfuscator/i, /luaobfuscator\.com/] },
-    ];
-    for (const sig of sigs) {
-      for (const p of sig.patterns) {
-        if (p.test(code)) return { name: sig.name, confidence: 0.92 };
-      }
-    }
-    const longStrings = (code.match(/"[\x00-\xff]{200,}"/g) || []).length;
-    const escSeq = (code.match(/\\\d{1,3}/g) || []).length;
-    if (longStrings > 0 || escSeq > 20) return { name: 'Unknown (heavily obfuscated)', confidence: 0.55 };
-    return { name: 'Plain Lua (no obfuscation detected)', confidence: 0.88 };
-  }
-
-  function beautifyLua(code, indentSize = 2) {
-    const indent = ' '.repeat(indentSize);
-    let level = 0;
-    const lines = code.split('\n');
-    return lines.map(line => {
-      const trimmed = line.trim();
-      if (!trimmed) return '';
-      const lower = trimmed.toLowerCase();
-      if (/^(end|until|\}|\)|elseif\b)/.test(lower)) level = Math.max(0, level - 1);
-      const out = indent.repeat(level) + trimmed;
-      if (/(\bthen\b|\bdo\b|\bfunction\b|\brepeat\b|else|\{|\()\s*(--.*)?$/.test(trimmed) && !/\bend\b/.test(lower)) level++;
-      return out;
-    }).join('\n');
-  }
-
-  btnRun.addEventListener('click', async () => {
-    const code = inputCode.value.trim();
-    if (!code) { toast('Paste a script first.', 'err'); inputCode.focus(); return; }
-
-    const originalHTML = btnRun.innerHTML;
-    btnRun.disabled = true;
-    btnRun.innerHTML = `<span class="spinner"></span> Working…`;
-    await new Promise(r => setTimeout(r, 700));
-
-    const engine = engineSel.value;
-    const engineName = engineSel.options[engineSel.selectedIndex].text;
-
-    try {
-      if (engine === 'detector') {
-        const result = detectObfuscator(code);
-        setOutput(
-          `-- 🔍 LeakD Detector\n--\n-- Obfuscator:  ${result.name}\n-- Confidence:  ${(result.confidence * 100).toFixed(0)}%\n-- Input size:  ${code.length} chars\n-- Lines:       ${code.split('\n').length}\n--\n-- Note: This is client-side pattern matching. The full\n-- server-side detector uses a 40+ signature database.`
-        );
-        toast(`Detected: ${result.name}`, 'info');
-      } else if (engine === 'beautifier') {
-        const out = beautifyLua(code, 2);
-        setOutput(out);
-        toast('Beautified.', 'ok');
-      } else {
-        setOutput(
-`-- ⚠ Deobfuscation backend not connected.
---
--- The real LeakD site runs "${engineName}" on a server.
--- This replica only includes the client-side Detector
--- and Beautifier (try them from the Engine dropdown).
---
--- Engine requested: ${engineName}
--- Input length:     ${code.length} chars
--- Input lines:      ${code.split('\n').length}
---
--- To add real deobfuscation, wire this handler to:
---   POST /api/deobfuscate
---   { "code": "...", "engine": "${engine}" }`,
-          true
-        );
-        toast('Requires backend — not connected.', 'err');
-      }
-    } finally {
-      btnRun.disabled = false;
-      btnRun.innerHTML = originalHTML;
-    }
-  });
-
-  inputCode.value = SAMPLE;
-  updateStats();
-
-  const params = new URLSearchParams(window.location.search);
-  const preEngine = params.get('engine');
-  if (preEngine) {
-    const opt = [...engineSel.options].find(o => o.value === preEngine);
-    if (opt) { engineSel.value = preEngine; statEngine.textContent = opt.text; }
-  }
+  toast('Processing... (Backend not connected)');
 }
