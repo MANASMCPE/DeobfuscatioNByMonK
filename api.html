@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#0a0806" />
-<title>API Docs — MonKDeobf</title>
-<link rel="icon" href="https://i.ibb.co/6P0Z5Q6/scriptor-monk.png" />
+<title>API Docs — MDeobf</title>
+<link rel="icon" href="https://leakd.vercel.app/LeakD.webp" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,8 +27,8 @@
 <header class="topbar">
   <div class="topbar-in">
     <a href="index.html" class="brand">
-      <img src="https://i.ibb.co/6P0Z5Q6/scriptor-monk.png" alt="MonKDeobf" onerror="this.src='https://via.placeholder.com/36/d4a853/000000?text=M'">
-      <span>MonK<em>Deobf</em></span>
+      <img src="https://leakd.vercel.app/LeakD.webp" alt="MDeobf" onerror="this.src='https://via.placeholder.com/36/d4a853/000000?text=M'">
+      <span>MDeobf</span>
     </a>
     <nav class="topnav">
       <a href="index.html">Home</a>
@@ -78,9 +78,9 @@
           <span class="ep-desc">API Status</span>
         </div>
         <pre class="codeblock">{
-  "name": "MonKDeobf API",
+  "name": "MDeobf API",
   "status": "online",
-  "documentation": "https://monkdeobf.vercel.app/api"
+  "documentation": "https://mdeobf.vercel.app/api"
 }</pre>
       </div>
 
@@ -104,19 +104,19 @@
 
 <nav class="bottom-nav">
   <a href="index.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     Home
   </a>
   <a href="tools.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
     Tools
   </a>
   <a href="api.html" class="active">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
     API Docs
   </a>
   <a href="updates.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
     Updates
   </a>
 </nav>
@@ -125,8 +125,8 @@
   <div class="foot-in">
     <div>
       <span class="foot-brand">
-        <img src="https://i.ibb.co/6P0Z5Q6/scriptor-monk.png" alt="MonKDeobf" onerror="this.src='https://via.placeholder.com/32/d4a853/000000?text=M'">
-        <span>MonK<em>Deobf</em></span>
+        <img src="https://leakd.vercel.app/LeakD.webp" alt="MDeobf" onerror="this.src='https://via.placeholder.com/32/d4a853/000000?text=M'">
+        <span>MDeobf</span>
       </span>
       <p>Free private deobfuscation for Lua. Web tools and API, built and maintained by MANASMCPE.</p>
     </div>
@@ -142,19 +142,5 @@
 
 <div class="toast-holder" id="toastHolder"></div>
 <script src="app.js"></script>
-<script>
-  const apiList = document.getElementById('apiEndpointList');
-  apiList.innerHTML = TOOLS.map(t => `
-    <div class="endpoint-item">
-      <span class="method-tag">POST</span>
-      <img src="${getToolIcon(t.slug)}" alt="" onerror="this.src='https://via.placeholder.com/24/d4a853/000000?text=M'">
-      <div style="flex:1;">
-        <div class="ep-name">/${t.slug}</div>
-        <div class="ep-desc">${t.name}</div>
-      </div>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-  `).join('');
-</script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 const TOOLS = [
-  { n:'01', name:'Detector',           slug:'detector',      type:'SCANNER', desc:'Detect the obfuscator used on a Lua script by MonKDeobf (results are not 100% guaranteed).' },
+  { n:'01', name:'Detector',           slug:'detector',      type:'SCANNER', desc:'Detect the obfuscator used on a Lua script by MDeobf (results are not 100% guaranteed).' },
   { n:'02', name:'Luraph v15 & v15.1', slug:'luraph',        type:'DEOBFUSCATOR', desc:'Deobfuscate Luraph v15 and v15.1 protected scripts.' },
   { n:'03', name:'Renamer',            slug:'renamer',       type:'TOOL', desc:'Rename messy and obfuscated variables to readable names.' },
   { n:'04', name:'Beautifier',         slug:'beautifier',    type:'TOOL', desc:'Format and beautify Lua source code for readability.' },
   { n:'05', name:'Moonveil 2.x',       slug:'moonveil',      type:'DEOBFUSCATOR', desc:'Deobfuscate Moonveil 2.x protected scripts (BETA).' },
-  { n:'06', name:'Prometheus',         slug:'prometheus',    type:'DEOBFUSCATOR', desc:'Deobfuscate Prometheus (not made by MonKDeobf).' },
-  { n:'07', name:'Ironbrew2',          slug:'ironbrew2',     type:'DEOBFUSCATOR', desc:'Deobfuscate Ironbrew2 (not made by MonKDeobf).' },
+  { n:'06', name:'Prometheus',         slug:'prometheus',    type:'DEOBFUSCATOR', desc:'Deobfuscate Prometheus (not made by MDeobf).' },
+  { n:'07', name:'Ironbrew2',          slug:'ironbrew2',     type:'DEOBFUSCATOR', desc:'Deobfuscate Ironbrew2 (not made by MDeobf).' },
   { n:'08', name:'MoonSec V3',         slug:'moonsecv3',     type:'DEOBFUSCATOR', desc:'Deobfuscate MoonSec V3 protected scripts.' },
   { n:'09', name:'Hercules',           slug:'hercules',      type:'DEOBFUSCATOR', desc:'Deobfuscate Hercules protected scripts.' },
   { n:'10', name:'Goofyscator',        slug:'goofyscator',   type:'DEOBFUSCATOR', desc:'Deobfuscate Goofyscator V11 protected scripts.' },
@@ -18,9 +18,9 @@ const TOOLS = [
   { n:'17', name:'Clyde',              slug:'clyde',         type:'DEOBFUSCATOR', desc:'Deobfuscate Clyde protected scripts.' }
 ];
 
-const LOGO_URL = "https://i.ibb.co/6P0Z5Q6/scriptor-monk.png"; 
-
-function getToolIcon(slug) { return LOGO_URL; }
+function getToolIcon(slug) { 
+  return `https://leakd.vercel.app/deobf/${slug}.webp`; 
+}
 
 function toast(msg) {
   const holder = document.getElementById('toastHolder');
@@ -46,7 +46,21 @@ if (enterScreen) {
   setTimeout(dismissEnter, 4000);
 }
 
-// Run only on tools.html
+// Build Home Grid
+const grid = document.getElementById('toolGridHome');
+if (grid) {
+  grid.innerHTML = TOOLS.map(t => `
+    <a class="tool-card" href="tools.html?tool=${t.slug}">
+      <div class="tool-card-top">
+        <span class="tool-num">${t.n}</span>
+        <div class="tool-ico"><img src="${getToolIcon(t.slug)}" alt="" onerror="this.src='https://via.placeholder.com/28/d4a853/000000?text=${t.name.charAt(0)}'"></div>
+      </div>
+      <span class="tool-name">${t.name}</span>
+    </a>
+  `).join('');
+}
+
+// Tools Logic (Only runs on tools.html)
 if (document.getElementById('toolPills')) {
   const urlParams = new URLSearchParams(window.location.search);
   let currentTool = urlParams.get('tool') || 'detector';
@@ -54,7 +68,7 @@ if (document.getElementById('toolPills')) {
   const pillsContainer = document.getElementById('toolPills');
   pillsContainer.innerHTML = TOOLS.map(t => `
     <div class="pill" data-slug="${t.slug}" onclick="selectTool('${t.slug}')">
-      <img src="${getToolIcon(t.slug)}" alt="" onerror="this.src='https://via.placeholder.com/20/d4a853/000000?text=M'">
+      <img src="${getToolIcon(t.slug)}" alt="" onerror="this.style.display='none'">
       ${t.name}
     </div>
   `).join('');
@@ -73,15 +87,17 @@ if (document.getElementById('toolPills')) {
     
     const iconImg = document.getElementById('benchIcon');
     iconImg.src = getToolIcon(slug);
-    iconImg.onerror = function() { this.src = 'https://via.placeholder.com/36/d4a853/000000?text=M'; };
+    iconImg.onerror = function() { this.src = `https://via.placeholder.com/36/d4a853/000000?text=${tool.name.charAt(0)}`; };
 
     document.getElementById('benchNotice').style.display = (slug === 'detector') ? 'flex' : 'none';
     
     window.history.replaceState(null, '', `?tool=${slug}`);
   }
 
+  // Initialize
   selectTool(currentTool);
 
+  // File upload handler
   document.getElementById('fileInput').addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -92,6 +108,22 @@ if (document.getElementById('toolPills')) {
     };
     reader.readAsText(file);
   });
+}
+
+// API Endpoint List (Only runs on api.html)
+if (document.getElementById('apiEndpointList')) {
+  const apiList = document.getElementById('apiEndpointList');
+  apiList.innerHTML = TOOLS.map(t => `
+    <div class="endpoint-item">
+      <span class="method-tag">POST</span>
+      <img src="${getToolIcon(t.slug)}" alt="" onerror="this.style.display='none'">
+      <div style="flex:1;">
+        <div class="ep-name">/${t.slug}</div>
+        <div class="ep-desc">${t.name}</div>
+      </div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--muted)"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  `).join('');
 }
 
 function runTool() {
