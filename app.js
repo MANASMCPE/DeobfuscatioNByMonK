@@ -18,8 +18,7 @@ const TOOLS = [
   { n:'17', name:'Clyde',              slug:'clyde',         type:'DEOBFUSCATOR', desc:'Deobfuscate Clyde protected scripts.' }
 ];
 
-// YAHAN APNA DIRECT IMAGE LINK DAALEIN
-const LOGO_URL = "YOUR_IMAGE_LINK_HERE"; 
+const LOGO_URL = "https://i.ibb.co/6P0Z5Q6/scriptor-monk.png"; 
 
 function getToolIcon(slug) { return LOGO_URL; }
 
