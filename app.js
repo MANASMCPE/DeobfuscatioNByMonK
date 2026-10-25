@@ -18,9 +18,9 @@ const TOOLS = [
   { n:'17', name:'Clyde',              slug:'clyde',         type:'DEOBFUSCATOR', desc:'Deobfuscate Clyde protected scripts.' }
 ];
 
-const LOGO_URL = "https://leakd.vercel.app/LeakD.webp"; 
-// Using the real site's tool icons so they never break
-function getToolIcon(slug) { return `https://leakd.vercel.app/deobf/${slug}.webp`; }
+const LOGO_URL = "logo.png"; 
+
+function getToolIcon(slug) { return LOGO_URL; }
 
 function toast(msg) {
   const holder = document.getElementById('toastHolder');
@@ -35,6 +35,17 @@ function toast(msg) {
   }, 2800);
 }
 
+// Splash Screen Logic
+const enterScreen = document.getElementById('enterScreen');
+if (enterScreen) {
+  function dismissEnter() { enterScreen.classList.add('hidden'); }
+  enterScreen.addEventListener('click', dismissEnter);
+  enterScreen.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') dismissEnter();
+  });
+  setTimeout(dismissEnter, 4000);
+}
+
 // Run only on tools.html
 if (document.getElementById('toolPills')) {
   const urlParams = new URLSearchParams(window.location.search);
@@ -43,7 +54,7 @@ if (document.getElementById('toolPills')) {
   const pillsContainer = document.getElementById('toolPills');
   pillsContainer.innerHTML = TOOLS.map(t => `
     <div class="pill" data-slug="${t.slug}" onclick="selectTool('${t.slug}')">
-      <img src="${getToolIcon(t.slug)}" alt="" onerror="this.style.display='none'">
+      <img src="${getToolIcon(t.slug)}" alt="">
       ${t.name}
     </div>
   `).join('');
@@ -62,7 +73,6 @@ if (document.getElementById('toolPills')) {
     
     const iconImg = document.getElementById('benchIcon');
     iconImg.src = getToolIcon(slug);
-    iconImg.onerror = function() { this.src = `https://via.placeholder.com/32/d4a853/000000?text=${tool.name.charAt(0)}`; };
 
     document.getElementById('benchNotice').style.display = (slug === 'detector') ? 'flex' : 'none';
     
