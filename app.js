@@ -18,7 +18,8 @@ const TOOLS = [
   { n:'17', name:'Clyde',              slug:'clyde',         type:'DEOBFUSCATOR', desc:'Deobfuscate Clyde protected scripts.' }
 ];
 
-const LOGO_URL = "logo.png"; 
+// YAHAN APNA DIRECT IMAGE LINK DAALEIN
+const LOGO_URL = "YOUR_IMAGE_LINK_HERE"; 
 
 function getToolIcon(slug) { return LOGO_URL; }
 
@@ -54,7 +55,7 @@ if (document.getElementById('toolPills')) {
   const pillsContainer = document.getElementById('toolPills');
   pillsContainer.innerHTML = TOOLS.map(t => `
     <div class="pill" data-slug="${t.slug}" onclick="selectTool('${t.slug}')">
-      <img src="${getToolIcon(t.slug)}" alt="">
+      <img src="${getToolIcon(t.slug)}" alt="" onerror="this.src='https://via.placeholder.com/20/d4a853/000000?text=M'">
       ${t.name}
     </div>
   `).join('');
@@ -73,17 +74,15 @@ if (document.getElementById('toolPills')) {
     
     const iconImg = document.getElementById('benchIcon');
     iconImg.src = getToolIcon(slug);
+    iconImg.onerror = function() { this.src = 'https://via.placeholder.com/36/d4a853/000000?text=M'; };
 
     document.getElementById('benchNotice').style.display = (slug === 'detector') ? 'flex' : 'none';
     
-    // Update URL without reloading
     window.history.replaceState(null, '', `?tool=${slug}`);
   }
 
-  // Init
   selectTool(currentTool);
 
-  // File upload handler
   document.getElementById('fileInput').addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
