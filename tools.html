@@ -1,139 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#0a0806" />
-<title>Tools — MDeobf</title>
-<link rel="icon" href="https://leakd.vercel.app/LeakD.webp" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools — MDeobf</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="bg-stage">
-  <div class="bg-poster"></div>
-  <video class="bg-video" autoplay loop playsinline muted preload="auto"
-    poster="https://res.cloudinary.com/homxpjkd/video/upload/f_auto,q_auto:low,w_720/Saisai_-_Fin_des_temps_ft._BORO700_Clip_officiel.jpg">
-    <source src="https://res.cloudinary.com/homxpjkd/video/upload/f_auto,q_10,w_720/Saisai_-_Fin_des_temps_ft._BORO700_Clip_officiel.mp4" type="video/mp4">
-  </video>
-  <div class="bg-blackout"></div>
-  <div class="bg-gradient"></div>
-  <div class="bg-noise"></div>
-</div>
-
-<header class="topbar">
-  <div class="topbar-in">
+  <header class="topnav">
     <a href="index.html" class="brand">
-      <img src="https://leakd.vercel.app/LeakD.webp" alt="MDeobf" onerror="this.src='https://via.placeholder.com/36/d4a853/000000?text=M'">
-      <span>MDeobf</span>
+      <img src="https://i.pinimg.com/736x/8a/e9/e9/8ae9e917f7f7b8a8d0b02e32e7a0e0a0.jpg" alt="Logo"> MDeob<span>f</span>
     </a>
-    <nav class="topnav">
+    <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="tools.html" class="active">Tools</a>
       <a href="api.html">API Docs</a>
       <a href="updates.html">Updates</a>
     </nav>
-    <div class="topbar-right">
-      <span class="status"><span class="status-dot"></span>API online</span>
-      <a class="top-cta" href="https://discord.gg/vuzvVGpzY" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1 .006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-        <span>Discord</span>
-      </a>
-      <a class="icon-btn" href="https://github.com/MANASMCPE" target="_blank" rel="noopener noreferrer" title="GitHub">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-      </a>
+    <div class="nav-right">
+      <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+      <button class="icon-btn">🎃</button>
+      <a href="https://discord.gg/YOUR_INVITE" class="btn-discord"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z"/></svg></a>
     </div>
-  </div>
-</header>
-
-<main>
-  <header class="page-head">
-    <p class="eyebrow">Workbench</p>
-    <h1>Tools <span class="badge">17 Available</span></h1>
-    <p class="lead">Drop a Lua script, choose a protection, and read the source. Nothing leaves your browser unless you send it.</p>
   </header>
 
-  <div class="tool-pills-wrap">
-    <div class="tool-pills" id="toolPills"></div>
-  </div>
+  <main>
+    <h1 class="page-title">Tools</h1>
+    <p class="page-desc">Pick a deobfuscator, add your script and read the result.</p>
 
-  <section class="bench">
-    <div class="bench-card">
-      <div class="bench-header">
-        <div class="bench-icon"><img id="benchIcon" src="" alt=""></div>
-        <div class="bench-title-group">
-          <h2 id="benchTitle">Detector <span class="bench-type" id="benchType">SCANNER</span></h2>
-          <p id="benchDesc">Detect the obfuscator used on a Lua script by MDeobf.</p>
-        </div>
-      </div>
+    <div class="tool-tabs" id="toolTabs">
+      <div class="tab active" data-tool="detect" data-endpoint="/detect"><img src="https://api.iconify.design/twemoji:pikachu.svg" width="18"> Detector</div>
+      <div class="tab" data-tool="moonsec" data-endpoint="/moonsec"><img src="https://api.iconify.design/twemoji:crescent-moon.svg" width="18"> MoonSec V3</div>
+      <div class="tab" data-tool="luraph" data-endpoint="/luraphv15"><img src="https://api.iconify.design/twemoji:locked-with-key.svg" width="18"> Luraph v15</div>
+      <div class="tab" data-tool="prometheus" data-endpoint="/prometheus"><img src="https://api.iconify.design/twemoji:crab.svg" width="18"> Prometheus</div>
+      <div class="tab" data-tool="rename" data-endpoint="/rename"><img src="https://api.iconify.design/twemoji:dog-face.svg" width="18"> Renamer</div>
+      <div class="tab" data-tool="beautify" data-endpoint="/beautify"><img src="https://api.iconify.design/twemoji:cat-face.svg" width="18"> Beautifier</div>
+    </div>
 
-      <div id="benchNotice" class="notice">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <div><b>Notice:</b> Results are not 100% guaranteed.</div>
+    <div class="workbench">
+      <h2 id="toolTitle">Detector</h2>
+      <p class="desc" id="toolDesc">Detect the obfuscator used on a Lua script by MDeobf (results are not 100% guaranteed).</p>
+      
+      <div class="notice" id="noticeBox">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Notice: Results are not 100% guaranteed.</span>
       </div>
 
       <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        <h4>Drop your script file here</h4>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <h3>Drop your script file here</h3>
         <p>or click to browse local files</p>
-        <span class="formats">.lua, .luau, .txt</span>
+        <input type="file" id="fileInput" accept=".lua,.txt,.luau" style="display: none;">
       </div>
 
-      <div class="paste-area">
-        <label>Or paste script</label>
-        <textarea id="codeInput" placeholder="-- Paste your obfuscated Lua code here..."></textarea>
+      <p style="font-size: 15px; font-weight: 500; margin-bottom: 10px;">Or paste a script</p>
+      <textarea id="scriptInput" placeholder="-- Paste raw Lua script code here directly..."></textarea>
+
+      <div class="verify-box">
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Verification complete. You can run the tool.</span>
+        <button onclick="document.getElementById('scriptInput').value=''; document.getElementById('outputArea').style.display='none';">Reset</button>
       </div>
 
-      <div class="bench-actions">
-        <button class="btn btn-primary" onclick="runTool()">Deobfuscate →</button>
+      <button class="btn-execute" id="executeBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Execute <span id="btnToolName">Detector</span>
+      </button>
+
+      <div class="output-area" id="outputArea">
+        <h4 id="statusText" style="color: var(--text);">Output</h4>
+        <pre id="outputCode"></pre>
       </div>
     </div>
-  </section>
-</main>
+  </main>
 
-<nav class="bottom-nav">
-  <a href="index.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Home
-  </a>
-  <a href="tools.html" class="active">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-    Tools
-  </a>
-  <a href="api.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-    API Docs
-  </a>
-  <a href="updates.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-    Updates
-  </a>
-</nav>
+  <nav class="bottom-nav">
+    <a href="index.html"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+    <a href="tools.html" class="active"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Tools</a>
+    <a href="api.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>API Docs</a>
+    <a href="updates.html"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Updates</a>
+  </nav>
 
-<footer class="site-foot">
-  <div class="foot-in">
-    <div>
-      <span class="foot-brand">
-        <img src="https://leakd.vercel.app/LeakD.webp" alt="MDeobf" onerror="this.src='https://via.placeholder.com/32/d4a853/000000?text=M'">
-        <span>MDeobf</span>
-      </span>
-      <p>Free private deobfuscation for Lua. Web tools and API, built and maintained by MANASMCPE.</p>
-    </div>
-    <nav class="foot-nav">
-      <a href="tools.html">Tools</a>
-      <a href="api.html">API Docs</a>
-      <a href="updates.html">Updates</a>
-      <a href="https://discord.gg/vuzvVGpzY" target="_blank">Discord</a>
-      <a href="https://github.com/MANASMCPE" target="_blank">GitHub</a>
-    </nav>
-  </div>
-</footer>
+  <script>
+    const toolsData = {
+      detect: { title: "Detector", desc: "Detect the obfuscator used on a Lua script by MDeobf (results are not 100% guaranteed).", endpoint: "/detect", btnText: "Detector", notice: true },
+      moonsec: { title: "MoonSec V3", desc: "Deobfuscate MoonSec V3 (not made by MDeobf).", endpoint: "/moonsec", btnText: "MoonSec V3", notice: false },
+      luraph: { title: "Luraph v15 & v15.1", desc: "Deobfuscate Luraph v15 & v15.1 protected scripts.", endpoint: "/luraphv15", btnText: "Luraph", notice: false },
+      prometheus: { title: "Prometheus", desc: "Deobfuscate Prometheus protected scripts.", endpoint: "/prometheus", btnText: "Prometheus", notice: false },
+      rename: { title: "Renamer", desc: "Renames messy and obfuscated variables in your Lua scripts.", endpoint: "/rename", btnText: "Renamer", notice: false },
+      beautify: { title: "Beautifier", desc: "Formats and beautifies Lua scripts.", endpoint: "/beautify", btnText: "Beautifier", notice: false },
+    };
 
-<div class="toast-holder" id="toastHolder"></div>
-<input type="file" id="fileInput" accept=".lua,.luau,.txt,text/plain" hidden />
-<script src="app.js"></script>
+    let currentTool = "detect", currentEndpoint = "/detect";
+    const tabs = document.querySelectorAll('.tab');
+    const noticeBox = document.getElementById('noticeBox');
+    const btnToolName = document.getElementById('btnToolName');
+    const fileInput = document.getElementById('fileInput');
+    const scriptInput = document.getElementById('scriptInput');
+    const executeBtn = document.getElementById('executeBtn');
+    const outputArea = document.getElementById('outputArea');
+    const statusText = document.getElementById('statusText');
+    const outputCode = document.getElementById('outputCode');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        currentTool = tab.getAttribute('data-tool');
+        currentEndpoint = tab.getAttribute('data-endpoint');
+        
+        document.getElementById('toolTitle').innerText = toolsData[currentTool].title;
+        document.getElementById('toolDesc').innerText = toolsData[currentTool].desc;
+        btnToolName.innerText = toolsData[currentTool].btnText;
+        noticeBox.style.display = toolsData[currentTool].notice ? 'flex' : 'none';
+        
+        outputArea.style.display = 'none';
+        outputCode.innerText = '';
+      });
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => { scriptInput.value = e.target.result; };
+      reader.readAsText(file);
+    });
+
+    executeBtn.addEventListener('click', async function() {
+      const script = scriptInput.value.trim();
+      if(!script) return alert("Please paste or upload a script!");
+
+      executeBtn.disabled = true;
+      executeBtn.innerHTML = `Processing...`;
+      outputArea.style.display = "block";
+      statusText.innerText = `Running ${toolsData[currentTool].title}...`;
+      statusText.style.color = "var(--text)";
+      outputCode.innerText = "";
+
+      try {
+        const res = await fetch('/api/deobfuscate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ script: script, endpoint: currentEndpoint })
+        });
+        const data = await res.json();
+        
+        if(!res.ok) throw new Error(data.error || "Failed to process");
+        
+        statusText.innerText = `✓ Success! Processed with ${toolsData[currentTool].title}`;
+        statusText.style.color = "var(--green)";
+        outputCode.innerText = data.code || JSON.stringify(data, null, 2);
+      } catch (err) {
+        statusText.innerText = `Error: ${err.message}`;
+        statusText.style.color = "var(--red)";
+      } finally {
+        executeBtn.disabled = false;
+        executeBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Execute ${toolsData[currentTool].btnText}`;
+      }
+    });
+  </script>
 </body>
 </html>

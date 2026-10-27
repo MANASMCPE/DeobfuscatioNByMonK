@@ -5,98 +5,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MDeobf — Free Lua Deobfuscation API & Tools</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- 1. SPLASH SCREEN (Purana Design) -->
-  <div class="enter" id="splashScreen">
-    <div class="enter-in">
-      <!-- Apni image ka link yahan daal sakte ho -->
-      <img src="https://i.pinimg.com/736x/8a/e9/e9/8ae9e917f7f7b8a8d0b02e32e7a0e0a0.jpg" class="enter-logo" alt="MDeobf Logo">
-      <h1 class="enter-title">MDeobf</h1>
-      <p class="enter-sub" id="enterSub">Click anywhere to enter</p>
-      <div class="enter-spin" id="enterSpin" style="display: none;"></div>
+  <header class="topnav">
+    <a href="index.html" class="brand">
+      <img src="https://i.pinimg.com/736x/8a/e9/e9/8ae9e917f7f7b8a8d0b02e32e7a0e0a0.jpg" alt="Logo"> MDeob<span>f</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="tools.html">Tools</a>
+      <a href="api.html">API Docs</a>
+      <a href="updates.html">Updates</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+      <button class="icon-btn">🎃</button>
+      <a href="https://discord.gg/YOUR_INVITE" class="btn-discord"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z"/></svg></a>
     </div>
-  </div>
+  </header>
 
-  <!-- MAIN SITE (Pehle hidden rahega) -->
-  <div id="mainContent" style="display: none;">
-    
-    <!-- TOPBAR -->
-    <div class="topbar">
-      <div class="topbar-in">
-        <a href="#" class="brand">
-          <img src="https://i.pinimg.com/736x/8a/e9/e9/8ae9e917f7f7b8a8d0b02e32e7a0e0a0.jpg" alt="Logo">
-          MDeobf
-        </a>
-        <div class="topnav">
-          <a href="#" class="active">Home</a>
-          <a href="tools.html">Tools</a>
-          <a href="api.html">API Docs</a>
-        </div>
-        <div class="topbar-right">
-          <div class="status"><span class="status-dot"></span> API online</div>
-          <a href="https://discord.gg" class="top-cta">Join Discord</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- HERO SECTION -->
-    <div class="hero">
-      <h1 class="hero-title">Free private <em>deobfuscation</em> API for Lua.</h1>
-      <p class="hero-sub">Deobfuscate protected code, identify obfuscators, or format scripts directly in your browser or by using the API.</p>
+  <main>
+    <section class="hero">
+      <h1>Free private <br>deobfuscation for Lua</h1>
+      <p>MDeobf is a free private API and a set of online tools for Lua scripts. Deobfuscate protected code, identify the obfuscator, or format a script, right in your browser or through the API.</p>
       
-      <!-- WORKING DEOBFUSCATOR TOOL -->
-      <div style="margin-top: 40px; background: var(--card); padding: 24px; border-radius: 16px; border: 1px solid var(--border);">
-        <h3 style="font-family: var(--serif); font-size: 24px; margin-bottom: 16px;">Try it now</h3>
-        <textarea id="scriptInput" placeholder="Paste your obfuscated Lua script here..." style="width: 100%; min-height: 120px; background: #0f0b07; border: 1px solid var(--border); border-radius: 10px; padding: 16px; color: var(--text); font-family: var(--mono); font-size: 13px; resize: vertical; outline: none; margin-bottom: 16px;"></textarea>
-        
-        <button id="deobfBtn" class="btn btn-primary" style="width: 100%; justify-content: center;">
-          <span class="spinner" id="btnSpinner" style="display: none; width: 16px; height: 16px; border: 2px solid #000; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px;"></span>
-          <span id="btnText">Auto Detect & Deobfuscate</span>
-        </button>
+      <div class="btn-group">
+        <a href="tools.html" class="btn btn-primary">Open Tools <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="api.html" class="btn btn-outline">API Documentation</a>
+      </div>
+      <div class="btn-group">
+        <a href="https://discord.gg/YOUR_INVITE" class="btn btn-discord" style="width: 100%; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z"/></svg> Join Discord</a>
+      </div>
+    </section>
 
-        <div id="outputWrapper" style="display: none; margin-top: 20px;">
-          <div id="statusText" style="font-size: 14px; margin-bottom: 10px; font-weight: 500;"></div>
-          <pre id="outputCode" style="width: 100%; min-height: 100px; background: #0f0b07; border: 1px solid var(--border); border-radius: 10px; padding: 16px; color: var(--green); font-family: var(--mono); font-size: 13px; white-space: pre-wrap; word-wrap: break-word; max-height: 300px; overflow-y: auto;"></pre>
+    <section class="stats">
+      <div class="stat">
+        <h2>19+</h2>
+        <p>Tools</p>
+      </div>
+      <div class="stat">
+        <h2>$0</h2>
+        <p>API price</p>
+      </div>
+      <div class="stat">
+        <h2>24/7</h2>
+        <p>Uptime</p>
+      </div>
+    </section>
+
+    <section class="steps">
+      <h2>Three steps, no account.</h2>
+      <div class="step-grid">
+        <div class="step">
+          <h3>Add your script</h3>
+          <p>Upload a .lua file or paste raw code straight into the workbench. Nothing to install.</p>
+        </div>
+        <div class="step">
+          <h3>Pick the protection</h3>
+          <p>Choose the obfuscator, or let the Detector name it first, then run the matching deobfuscator.</p>
+        </div>
+        <div class="step">
+          <h3>Read the source</h3>
+          <p>Copy the output, download the .lua, or call the same endpoint from your own stack.</p>
         </div>
       </div>
+    </section>
+  </main>
 
-      <div class="hero-actions" style="margin-top: 32px;">
-        <a href="tools.html" class="btn btn-ghost">Open Tools →</a>
-        <a href="api.html" class="btn btn-ghost">API Documentation</a>
-      </div>
-    </div>
-
-    <!-- STATS -->
-    <div class="statband">
-      <div class="statband-in">
-        <div class="stat"><span class="stat-num">17+</span><span class="stat-label">Tools</span></div>
-        <div class="stat"><span class="stat-num">$0</span><span class="stat-label">100% Free API</span></div>
-        <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Online</span></div>
-      </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="site-foot">
-      <div class="foot-in">
-        <div>
-          <div class="foot-brand">
-            <img src="https://i.pinimg.com/736x/8a/e9/e9/8ae9e917f7f7b8a8d0b02e32e7a0e0a0.jpg" alt="Logo">
-            MDeobf
-          </div>
-          <p style="margin-top: 12px;">Free private deobfuscation for Lua. Web tools and API, built and maintained by MANASMCPE.</p>
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">
+          <img src="https://i.pinimg.com/736x/8a/e9/e9/8ae9e917f7f7b8a8d0b02e32e7a0e0a0.jpg" alt="Logo"> MDeob<span>f</span>
         </div>
-        <div class="foot-nav">
+        <p>Free private Lua deobfuscation: web tools and an API, built and maintained by MANASMCPE.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Explore</h4>
           <a href="tools.html">Tools</a>
           <a href="api.html">API Docs</a>
-          <a href="https://discord.gg">Discord</a>
+          <a href="updates.html">Updates</a>
+        </div>
+        <div class="footer-col">
+          <h4>Community</h4>
+          <a href="https://discord.gg/YOUR_INVITE">Discord</a>
+          <a href="https://github.com/MANASMCPE/DeobfuscatioNByMonK">GitHub</a>
         </div>
       </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
-  <script src="app.js"></script>
+  <nav class="bottom-nav">
+    <a href="index.html" class="active"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
+    <a href="tools.html"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Tools</a>
+    <a href="api.html"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>API Docs</a>
+    <a href="updates.html"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Updates</a>
+  </nav>
 </body>
 </html>
