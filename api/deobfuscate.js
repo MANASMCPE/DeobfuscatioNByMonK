@@ -1,7 +1,36 @@
 // api/deobfuscate.js
 const LEAKD_BASE = "https://leakd.up.railway.app";
 
-// Detector ke output keyword → LeakD endpoint mapping
+// ---- Simple in-memory rate limiter (per IP) ----
+// Note: Vercel serverless par memory instance ke saath reset hoti hai,
+// lekin basic spam rokne ke liye kaafi hai.
+const rateMap = new Map();
+const WINDOW_MS = 60 * 1000;   // 1 minute
+const MAX_PER_WINDOW = 5;      // per IP per minute (tum adjust kar sakte ho)
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const entry = rateMap.get(ip) || { count: 0, start: now };
+
+  if (now - entry.start > WINDOW_MS) {
+    entry.count = 0;
+    entry.start = now;
+  }
+
+  entry.count++;
+  rateMap.set(ip, entry);
+
+  // Purane entries clean karo (memory leak se bachne ke liye)
+  if (rateMap.size > 5000) {
+    for (const [k, v] of rateMap) {
+      if (now - v.start > WINDOW_MS) rateMap.delete(k);
+    }
+  }
+
+  return entry.count <= MAX_PER_WINDOW;
+}
+
+// ---- Detector mapping (same as before) ----
 const DETECT_MAP = [
   { keys: ["moonsec v3", "moonsec3", "moonsec"], endpoint: "/moonsec" },
   { keys: ["moonsec v2", "moonsecv2"], endpoint: "/moonsecv2" },
@@ -41,21 +70,13 @@ async function callLeakD(endpoint, script) {
   return data;
 }
 
-// Detector response me field ka naam alag ho sakta hai — sab handle karo
 function extractDetectedName(detectData) {
   if (!detectData || typeof detectData !== "object") return null;
-
   const candidates = [
-    detectData.obfuscator,
-    detectData.detected,
-    detectData.name,
-    detectData.result,
-    detectData.obfuscator_name,
-    detectData.script_type,
+    detectData.obfuscator, detectData.detected, detectData.name,
+    detectData.result, detectData.obfuscator_name, detectData.script_type,
   ].filter(Boolean);
-
   if (candidates.length) return String(candidates[0]);
-
   if (detectData.data && typeof detectData.data === "object") {
     return extractDetectedName(detectData.data);
   }
@@ -72,8 +93,26 @@ function endpointFromDetected(name) {
 }
 
 export default async function handler(req, res) {
+  // CORS — public site ke liye (same origin ho to bhi theek)
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  // Rate limit check
+  const ip =
+    req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+    req.socket?.remoteAddress ||
+    "unknown";
+
+  if (!checkRateLimit(ip)) {
+    return res.status(429).json({
+      error: "Too many requests — 1 minute baad try karo",
+    });
   }
 
   try {
@@ -89,7 +128,6 @@ export default async function handler(req, res) {
     let detected = null;
     let endpoint = manualEndpoint;
 
-    // Step 1: Auto-detect (agar manual endpoint nahi diya)
     if (!endpoint) {
       let detectData;
       try {
@@ -114,14 +152,12 @@ export default async function handler(req, res) {
       }
     }
 
-    // Step 2: Deobfuscate
     const data = await callLeakD(endpoint, script);
 
     if (data.success === false) {
       return res.status(422).json({
         error: data.error || "Deobfuscation failed",
-        detected,
-        endpoint,
+        detected, endpoint,
       });
     }
 
@@ -137,4 +173,4 @@ export default async function handler(req, res) {
     console.error("LeakD proxy error:", err);
     return res.status(500).json({ error: err.message || "Server error" });
   }
-          }
+}
