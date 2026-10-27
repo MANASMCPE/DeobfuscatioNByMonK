@@ -1,88 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>API Docs — MDeobf</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Docs - MDeobf</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <header class="topnav">
-    <a href="index.html" class="brand">
-      <img src="https://i.pinimg.com/736x/8a/e9/e9/8ae9e917f7f7b8a8d0b02e32e7a0e0a0.jpg" alt="Logo"> MDeob<span>f</span>
-    </a>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="tools.html">Tools</a>
-      <a href="api.html" class="active">API Docs</a>
-      <a href="updates.html">Updates</a>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://i.pinimg.com/736x/8e/9c/22/8e9c22274d5b66a2236d6b622c01ee58.jpg" alt="Logo">
+                <span>MDeobf</span>
+            </div>
+            <nav class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="tools.html">Tools</a>
+                <a href="api.html" class="active">API Docs</a>
+                <a href="updates.html">Updates</a>
+            </nav>
+            <div class="header-actions">
+                <button class="icon-btn"><i class="fa-regular fa-sun"></i></button>
+                <button class="icon-btn orange-border">🎃</button>
+                <a href="https://discord.gg/YOUR_INVITE" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="web-bg right"></div>
+        <div class="page-header">
+            <h1>API Documentation</h1>
+            <p class="uppercase-text" style="font-size: 12px; letter-spacing: 0.5px;">REST over HTTPS. Send a multipart upload or a JSON body. Every request needs an API key.</p>
+        </div>
+
+        <div class="base-url-box">
+            <span>Base URL: <code>https://api.mdeobf.com</code></span>
+            <button style="background:none; border:none; color:var(--text-muted); cursor:pointer;"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+
+        <div class="api-auth-warning">
+            <div class="auth-text">
+                <h3><i class="fa-solid fa-link"></i> API key required <span class="badge">Mandatory</span></h3>
+                <p>An API key is strictly required for every request. Any unauthenticated call will be rejected. Request your API key by joining our Discord server.</p>
+                <p class="mono-text">Only method: HTTP header</p>
+            </div>
+            <div>
+                <div class="mono-text" style="margin-bottom: 8px;">X-Api-Key: YOUR_API_KEY</div>
+                <a href="https://discord.gg/YOUR_INVITE" target="_blank" class="discord-btn" style="justify-content:center;"><i class="fa-brands fa-discord"></i> Get an API key on Discord</a>
+            </div>
+        </div>
+
+        <div class="api-status-card">
+            <h2 style="font-size:20px; display:flex; align-items:center; gap:10px; margin-bottom:8px;"><i class="fa-solid fa-server"></i> API Status</h2>
+            <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">Check if the MDeobf API is online and responding.</p>
+            
+            <div class="endpoint-box">
+                <span class="method get">GET</span>
+                <span class="url">https://api.mdeobf.com/</span>
+                <button style="background:none; border:none; color:var(--text-muted); cursor:pointer;"><i class="fa-regular fa-copy"></i> Copy URL</button>
+            </div>
+
+            <div class="code-examples">
+                <div class="code-box">
+                    <div class="code-header">cURL request <i class="fa-regular fa-copy" style="cursor:pointer;"></i></div>
+                    <div class="code-body">
+                        <span style="color:#4ade80;">curl</span> https://api.mdeobf.com/ \<br>
+                        &nbsp;&nbsp;-H <span style="color:#4ade80;">"X-Api-Key: YOUR_API_KEY"</span>
+                    </div>
+                </div>
+                <div class="code-box">
+                    <div class="code-header">JSON response <i class="fa-regular fa-copy" style="cursor:pointer;"></i></div>
+                    <div class="code-body">
+                        {<br>
+                        &nbsp;&nbsp;<span style="color:#60a5fa;">"name"</span>: <span style="color:#4ade80;">"MDeobf API"</span>,<br>
+                        &nbsp;&nbsp;<span style="color:#60a5fa;">"status"</span>: <span style="color:#4ade80;">"online"</span>,<br>
+                        &nbsp;&nbsp;<span style="color:#60a5fa;">"documentation"</span>: <span style="color:#4ade80;">"https://mdeobf.vercel.app/api"</span><br>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="mobile-nav">
+        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="tools.html"><i class="fa-solid fa-terminal"></i> Tools</a>
+        <a href="api.html" class="active"><i class="fa-solid fa-book-open"></i> API Docs</a>
+        <a href="updates.html"><i class="fa-solid fa-clock-rotate-left"></i> Updates</a>
     </nav>
-    <div class="nav-right">
-      <button class="icon-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
-      <button class="icon-btn">🎃</button>
-      <a href="https://discord.gg/YOUR_INVITE" class="btn-discord"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z"/></svg></a>
-    </div>
-  </header>
-
-  <main>
-    <h1 class="page-title">API Documentation</h1>
-    <p class="page-desc">REST over HTTPS. Send a multipart upload or a JSON body. Every request needs an API key.</p>
-
-    <div class="api-box">
-      <h3>Base URL</h3>
-      <div class="api-url">
-        <span>https://deobfuscationbymonk.vercel.app/api</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-      </div>
-    </div>
-
-    <div class="api-box api-warning">
-      <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Scripts are logged & analyzed</h3>
-      <p>Every script is logged and saved in databases to be analyzed and find bugs.</p>
-    </div>
-
-    <div class="api-box">
-      <h3>🔑 API key required</h3>
-      <p>An API key is strictly required for every request. Any unauthenticated call will be rejected.</p>
-      <div class="api-url">
-        <span>X-Api-Key: YOUR_API_KEY</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-      </div>
-      <a href="https://discord.gg/YOUR_INVITE" class="btn btn-discord" style="margin-top: 16px; display: inline-flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z"/></svg> Get an API key on Discord</a>
-    </div>
-
-    <h3 style="margin-top: 40px; font-size: 20px; margin-bottom: 16px;">Endpoints</h3>
-    
-    <div class="api-box" style="padding: 0 24px;">
-      <div class="endpoint">
-        <div class="endpoint-header">
-          <span class="endpoint-name">/detect</span>
-          <span class="method">POST</span>
-        </div>
-        <p>Detect the obfuscator used on a Lua script.</p>
-      </div>
-      <div class="endpoint">
-        <div class="endpoint-header">
-          <span class="endpoint-name">/moonsec</span>
-          <span class="method">POST</span>
-        </div>
-        <p>Deobfuscate MoonSec V3 protected scripts.</p>
-      </div>
-      <div class="endpoint">
-        <div class="endpoint-header">
-          <span class="endpoint-name">/luraphv15</span>
-          <span class="method">POST</span>
-        </div>
-        <p>Deobfuscate Luraph v15 & v15.1 protected scripts.</p>
-      </div>
-    </div>
-  </main>
-
-  <nav class="bottom-nav">
-    <a href="index.html"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a>
-    <a href="tools.html"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Tools</a>
-    <a href="api.html" class="active"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>API Docs</a>
-    <a href="updates.html"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Updates</a>
-  </nav>
 </body>
 </html>
